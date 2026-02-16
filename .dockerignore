@@ -1,0 +1,42 @@
+# Git files
+.git
+.gitignore
+.gitattributes
+
+# Docker files
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Data directories
+photos/
+chrome-profile/
+
+# Build artifacts
+*.exe
+*.dll
+*.so
+*.dylib
+gphotos-cdp
+
+# Test files
+test.sh
+.profile
+
+# Logs
+*.log
+sync.log
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Documentation (optional, comment out if you want it in the image)
+README.md

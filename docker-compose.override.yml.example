@@ -1,0 +1,43 @@
+# docker-compose.override.yml.example
+# Copy this to docker-compose.override.yml to customize your setup
+# This file is gitignored and won't be committed
+
+version: '3.8'
+
+services:
+  gphotos-cdp:
+    # Example: Use pre-built image instead of building locally
+    # image: ghcr.io/YOUR_USERNAME/gphotos-cdp:latest
+    
+    # Example: Custom resource limits
+    # deploy:
+    #   resources:
+    #     limits:
+    #       cpus: '4.0'
+    #       memory: 8G
+    
+    # Example: Additional volumes
+    # volumes:
+    #   - ./custom-locales.yaml:/usr/local/bin/locales.yaml:ro
+    
+    # Example: Run external program on each download
+    # command: >
+    #   gphotos-cdp
+    #   -profile /data/profile
+    #   -dldir /data/photos
+    #   -headless
+    #   -workers 4
+    #   -run /path/to/script.sh
+    
+    # Example: Network configuration
+    # networks:
+    #   - my-network
+    
+    # Example: Different timezone
+    # environment:
+    #   - TZ=Europe/Warsaw
+
+# Example: Custom network
+# networks:
+#   my-network:
+#     external: true

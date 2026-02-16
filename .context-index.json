@@ -1,0 +1,249 @@
+{
+  "context_files_version": "1.0",
+  "project": "gphotos-cdp",
+  "last_updated": "2026-02-13",
+  "session_status": "feature_complete_testing_phase",
+  
+  "priority_reading_order": [
+    {
+      "file": ".ai-context.md",
+      "priority": 1,
+      "estimated_read_time_minutes": 5,
+      "description": "Main AI context file - START HERE",
+      "size_kb": 13,
+      "audience": ["ai", "developers"]
+    },
+    {
+      "file": "RESUME.md",
+      "priority": 2,
+      "estimated_read_time_minutes": 2,
+      "description": "Ultra-quick resume guide for AI",
+      "size_kb": 6.2,
+      "audience": ["ai"]
+    },
+    {
+      "file": "SESSION_SUMMARY.md",
+      "priority": 3,
+      "estimated_read_time_minutes": 3,
+      "description": "Quick reference - what was done and what's next",
+      "size_kb": 8.5,
+      "audience": ["ai", "project_managers", "developers"]
+    },
+    {
+      "file": "DEVELOPMENT_LOG.md",
+      "priority": 4,
+      "estimated_read_time_minutes": 15,
+      "description": "Complete session history with all details",
+      "size_kb": 20,
+      "audience": ["developers", "architects"]
+    },
+    {
+      "file": "ROADMAP.md",
+      "priority": 5,
+      "estimated_read_time_minutes": 8,
+      "description": "Future development plans and feature roadmap",
+      "size_kb": 9.8,
+      "audience": ["project_managers", "developers"]
+    }
+  ],
+  
+  "documentation_categories": {
+    "ai_context": {
+      "description": "Files specifically for AI assistants to understand project context",
+      "files": [
+        ".ai-context.md",
+        "RESUME.md",
+        "SESSION_SUMMARY.md"
+      ]
+    },
+    "development_history": {
+      "description": "Historical record of development sessions",
+      "files": [
+        "DEVELOPMENT_LOG.md",
+        "CHANGELOG.md"
+      ]
+    },
+    "planning": {
+      "description": "Future plans and roadmaps",
+      "files": [
+        "ROADMAP.md"
+      ]
+    },
+    "user_guides": {
+      "description": "End-user documentation",
+      "files": [
+        "README.md",
+        "QUICKSTART.md",
+        "DOCKER.md",
+        "LEARNING_MODE.md",
+        "DEPLOYMENT.md",
+        "FAQ.md"
+      ]
+    },
+    "technical_docs": {
+      "description": "Technical architecture and structure",
+      "files": [
+        "ARCHITECTURE.md",
+        "PROJECT_STRUCTURE.md"
+      ]
+    },
+    "contributor_guides": {
+      "description": "Documentation for contributors",
+      "files": [
+        "CONTRIBUTING.md",
+        "INDEX.md"
+      ]
+    }
+  },
+  
+  "key_accomplishments": {
+    "phase_1_docker": {
+      "status": "complete",
+      "date_completed": "2026-02-early",
+      "description": "Complete Docker infrastructure for headless deployment",
+      "deliverables": [
+        "Dockerfile (multi-stage)",
+        "docker-compose.yml",
+        "Setup scripts (install.sh, setup-auth.sh, docker.sh)",
+        "Systemd integration",
+        "CI/CD with GitHub Actions",
+        "9+ documentation files"
+      ]
+    },
+    "phase_2_learning_mode": {
+      "status": "complete",
+      "date_completed": "2026-02-13",
+      "description": "Interactive tool to create locale translations",
+      "deliverables": [
+        "learning.go (~500 lines)",
+        "JavaScript collectors for UI labels",
+        "Terminal-based interactive Q&A",
+        "YAML generation",
+        "LEARNING_MODE.md guide",
+        "ARCHITECTURE.md technical docs",
+        "test-locale.sh validation"
+      ]
+    }
+  },
+  
+  "project_statistics": {
+    "total_files_created": 43,
+    "code_lines_added": 1640,
+    "documentation_kb": 200,
+    "markdown_files": 15,
+    "bash_scripts": 8,
+    "go_files": 3,
+    "languages_supported": ["en", "nl"],
+    "languages_tool_available": true
+  },
+  
+  "technical_stack": {
+    "language": "Go 1.23",
+    "browser_automation": "chromedp (Chrome DevTools Protocol)",
+    "containerization": "Docker + docker-compose",
+    "base_images": ["golang:1.23-bookworm", "debian:bookworm-slim"],
+    "ci_cd": "GitHub Actions",
+    "logging": "zerolog",
+    "config_format": "YAML"
+  },
+  
+  "current_status": {
+    "phase": "testing",
+    "features_complete": true,
+    "documentation_complete": true,
+    "pending_tasks": [
+      "User testing of learning mode",
+      "Docker build verification",
+      "Create additional locales (DE, FR, ES, IT, PT)",
+      "Bug fixes from feedback",
+      "Version 1.0 release"
+    ]
+  },
+  
+  "quick_commands": {
+    "testing": {
+      "learning_mode": "make learn",
+      "docker_build": "docker-compose build",
+      "validation": "./validate.sh"
+    },
+    "operations": {
+      "start": "make up",
+      "stop": "make down",
+      "logs": "make logs",
+      "restart": "make restart"
+    },
+    "development": {
+      "shell": "make shell",
+      "clean": "make clean",
+      "rebuild": "make rebuild"
+    }
+  },
+  
+  "user_requirements_fulfilled": {
+    "explore_repository": true,
+    "headless_server_deployment": true,
+    "docker_deployment": true,
+    "learning_mode_for_locales": true
+  },
+  
+  "key_file_locations": {
+    "core_code": {
+      "main": "main.go",
+      "learning_mode": "learning.go",
+      "locale_loader": "locales.go",
+      "locale_data": "locales.yaml"
+    },
+    "docker": {
+      "dockerfile": "Dockerfile",
+      "compose": "docker-compose.yml",
+      "env_template": ".env.example"
+    },
+    "scripts": {
+      "installer": "install.sh",
+      "auth_setup": "setup-auth.sh",
+      "management": "docker.sh",
+      "validation": "validate.sh",
+      "locale_test": "test-locale.sh",
+      "build_automation": "Makefile"
+    },
+    "documentation": {
+      "main_readme": "README.md",
+      "documentation_hub": "INDEX.md",
+      "docker_guide": "DOCKER.md",
+      "learning_mode_guide": "LEARNING_MODE.md",
+      "architecture": "ARCHITECTURE.md",
+      "development_history": "DEVELOPMENT_LOG.md",
+      "future_plans": "ROADMAP.md"
+    }
+  },
+  
+  "important_notes": {
+    "for_ai": [
+      "Always read .ai-context.md first when resuming work",
+      "Learning mode requires interactive terminal (-it flags)",
+      "Chrome profile setup needs first-time authentication",
+      "No Go compiler locally - use Docker for builds"
+    ],
+    "for_users": [
+      "Read QUICKSTART.md for 5-minute setup",
+      "Use 'make learn' to create new language locales",
+      "All Docker commands available via Makefile",
+      "Check FAQ.md for common issues"
+    ],
+    "technical": [
+      "Multi-arch builds: amd64, arm64",
+      "Non-root user in container for security",
+      "Learning mode uses JavaScript injection for label collection",
+      "YAML validation available via test-locale.sh"
+    ]
+  },
+  
+  "metadata": {
+    "created_by": "GitHub Copilot (Claude Sonnet 4.5)",
+    "project_owner": "Przemek",
+    "conversation_language": "Polish",
+    "documentation_language": "English",
+    "session_duration_weeks": 2,
+    "completion_date": "2026-02-13"
+  }
+}

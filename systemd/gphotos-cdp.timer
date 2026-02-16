@@ -1,0 +1,14 @@
+[Unit]
+Description=Run gphotos-cdp sync
+Requires=gphotos-cdp.service
+After=gphotos-cdp.service
+
+[Timer]
+# Run 4 times per day (every 6 hours)
+OnCalendar=*-*-* 00,06,12,18:00:00
+
+# Run on boot if missed schedule
+Persistent=true
+
+[Install]
+WantedBy=timers.target

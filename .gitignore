@@ -12,9 +12,17 @@ gphotos-cdp
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 
-# test data
+# Test data
 /photos
 /profile
 .DS_Store
 /sync.log
 /.profile
+
+# Docker volumes and data
+/chrome-profile
+.env
+docker-compose.override.yml
+
+# Logs
+*.log

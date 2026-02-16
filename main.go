@@ -78,6 +78,7 @@ var (
 	albumTypeFlag   = flag.String("albumtype", "album", "type of album to download (as seen in URL), has no effect if lastdone file is found or if -start contains full URL")
 	batchSizeFlag   = flag.Int("batchsize", 0, "number of photos to download in one batch")
 	execPathFlag    = flag.String("execpath", "", "path to Chrome/Chromium binary to use")
+	learnFlag       = flag.Bool("learn", false, "Learning mode: interactively create locale translations for a new language")
 )
 
 const gphotosUrl = "https://photos.google.com"
@@ -122,6 +123,21 @@ func main() {
 	}
 	if *albumIdFlag != "" && (*fromFlag != "" || *toFlag != "") {
 		log.Fatal().Msg("-from and -to cannot be used with -album")
+	}
+
+	// Learning mode - run and exit
+	if *learnFlag {
+		log.Info().Msg("Starting Learning Mode...")
+		s, err := NewSession()
+		if err != nil {
+			log.Fatal().Msgf("failed to create session: %v", err)
+		}
+		defer s.Shutdown()
+		log.Info().Msgf("session dir: %v", s.profileDir)
+		if err := runLearningMode(s); err != nil {
+			log.Fatal().Msgf("learning mode failed: %v", err)
+		}
+		return
 	}
 
 	// Set XDG_CONFIG_HOME and XDG_CACHE_HOME to a temp dir to solve issue in newer versions of Chromium

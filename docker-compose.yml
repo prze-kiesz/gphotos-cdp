@@ -1,0 +1,85 @@
+version: '3.8'
+
+services:
+  gphotos-cdp:
+    build: .
+    container_name: gphotos-cdp
+    restart: unless-stopped
+    
+    # Security options for Chrome
+    security_opt:
+      - seccomp:unconfined
+    
+    # Shared memory size (important for Chrome)
+    shm_size: '2gb'
+    
+    # Environment variables
+    environment:
+      # Log level: debug, info, warn, error
+      - LOGLEVEL=${LOGLEVEL:-info}
+      
+      # Number of concurrent downloads
+      - WORKERS=${WORKERS:-2}
+      
+      # Optional: date range filters (YYYY-MM-DD)
+      # - FROM_DATE=2024-01-01
+      # - TO_DATE=2024-12-31
+      
+      # Optional: specific album ID
+      # - ALBUM_ID=
+      
+      # JSON logging for better parsing
+      - JSON_LOG=${JSON_LOG:-false}
+    
+    volumes:
+      # Downloaded photos (persistent)
+      - ./photos:/data/photos
+      
+      # Chrome profile (persistent, keeps login session)
+      - ./chrome-profile:/data/profile
+      
+      # Optional: custom locales file
+      # - ./locales.yaml:/usr/local/bin/locales.yaml:ro
+    
+    # Command override with environment variables
+    command: >
+      gphotos-cdp
+      -profile /data/profile
+      -dldir /data/photos
+      -headless
+      -workers ${WORKERS:-2}
+      -loglevel ${LOGLEVEL:-info}
+      ${JSON_LOG:+-json}
+      ${FROM_DATE:+-from ${FROM_DATE}}
+      ${TO_DATE:+-to ${TO_DATE}}
+      ${ALBUM_ID:+-album ${ALBUM_ID}}
+    
+    # Resource limits (adjust as needed)
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 4G
+        reservations:
+          cpus: '1.0'
+          memory: 2G
+    
+    # Healthcheck
+    healthcheck:
+      test: ["CMD-SHELL", "pgrep -f gphotos-cdp || exit 1"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    
+    # Logging configuration
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+# Optional: network configuration
+networks:
+  default:
+    name: gphotos-network
