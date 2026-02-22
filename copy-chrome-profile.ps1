@@ -3,11 +3,11 @@
 # Right-click and select "Run with PowerShell"
 
 Write-Host ""
-Write-Host "╔═══════════════════════════════════════════════════════════════╗" -ForegroundColor Cyan
-Write-Host "║                                                               ║" -ForegroundColor Cyan
-Write-Host "║     Chrome Profile Export for gphotos-cdp                    ║" -ForegroundColor Cyan
-Write-Host "║                                                               ║" -ForegroundColor Cyan
-Write-Host "╚═══════════════════════════════════════════════════════════════╝" -ForegroundColor Cyan
+Write-Host "================================================================" -ForegroundColor Cyan
+Write-Host "                                                                " -ForegroundColor Cyan
+Write-Host "     Chrome Profile Export for gphotos-cdp                     " -ForegroundColor Cyan
+Write-Host "                                                                " -ForegroundColor Cyan
+Write-Host "================================================================" -ForegroundColor Cyan
 Write-Host ""
 
 # Change to Desktop
@@ -78,7 +78,7 @@ $copiedCount = 0
 foreach ($folder in $folders) {
     $source = Join-Path $ChromeProfile $folder
     if (Test-Path $source) {
-        Write-Host "   ✓ $folder" -ForegroundColor Gray
+        Write-Host "   [OK] $folder" -ForegroundColor Gray
         try {
             Copy-Item $source -Destination "chrome-profile\Default\" -Recurse -Force -ErrorAction SilentlyContinue
             $copiedCount++
@@ -93,7 +93,7 @@ $files = @("Cookies", "Cookies-journal", "Preferences", "Secure Preferences", "L
 foreach ($file in $files) {
     $source = Join-Path $ChromeProfile $file
     if (Test-Path $source) {
-        Write-Host "   ✓ $file" -ForegroundColor Gray
+        Write-Host "   [OK] $file" -ForegroundColor Gray
         try {
             Copy-Item $source -Destination "chrome-profile\Default\" -Force -ErrorAction SilentlyContinue
             $copiedCount++
@@ -125,7 +125,8 @@ if (Test-Path "chrome-profile.zip") {
 try {
     Compress-Archive -Path "chrome-profile" -DestinationPath "chrome-profile.zip" -Force
     $zipSize = (Get-Item "chrome-profile.zip").Length / 1MB
-    Write-Host "Created: chrome-profile.zip ($([math]::Round($zipSize, 2)) MB)" -ForegroundColor Green
+    $zipSizeRounded = [math]::Round($zipSize, 2)
+    Write-Host "Created: chrome-profile.zip ($zipSizeRounded MB)" -ForegroundColor Green
 } catch {
     Write-Host "ERROR: Could not create ZIP file!" -ForegroundColor Red
     Write-Host "   Error: $_" -ForegroundColor Yellow
@@ -135,13 +136,13 @@ try {
 
 # Success message
 Write-Host ""
-Write-Host "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" -ForegroundColor Cyan
+Write-Host "================================================================" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "SUCCESS! Profile exported!" -ForegroundColor Green
 Write-Host ""
 Write-Host "Location: $env:USERPROFILE\Desktop\chrome-profile.zip" -ForegroundColor White
 Write-Host ""
-Write-Host "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" -ForegroundColor Cyan
+Write-Host "================================================================" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "NEXT STEP: Upload file to server" -ForegroundColor Yellow
 Write-Host ""
@@ -155,7 +156,7 @@ Write-Host "   1. Download WinSCP: https://winscp.net/" -ForegroundColor Cyan
 Write-Host "   2. Connect to server" -ForegroundColor Cyan
 Write-Host "   3. Drag chrome-profile.zip to ~/workspace/gphotos-cdp/" -ForegroundColor Cyan
 Write-Host ""
-Write-Host "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" -ForegroundColor Cyan
+Write-Host "================================================================" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "ON SERVER (after upload):" -ForegroundColor Yellow
 Write-Host ""
@@ -163,7 +164,7 @@ Write-Host "   cd ~/workspace/gphotos-cdp" -ForegroundColor Cyan
 Write-Host "   unzip -o chrome-profile.zip" -ForegroundColor Cyan
 Write-Host "   make learn" -ForegroundColor Cyan
 Write-Host ""
-Write-Host "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" -ForegroundColor Cyan
+Write-Host "================================================================" -ForegroundColor Cyan
 Write-Host ""
 
 # Open Explorer at Desktop
