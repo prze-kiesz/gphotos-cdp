@@ -102,9 +102,20 @@ Or use `./docker.sh <command>` instead.
 
 ## Why?
 
-We want to incrementally download our own photos out of Google Photos. Google offers no APIs to do this, so we have to scrape the website.
+**Problem with Google Takeout:**
+- Only downloads YOUR photos and YOUR albums
+- Doesn't download albums created by others (even if they contain your photos)
+- Your albums don't include photos added by friends/family
+- Manual and slow process (weeks, not minutes)
 
-We can get our original photos out with [Google Takeout](https://takeout.google.com/), but only manually and slowly. We don't want to remember to do it (or renew time-limited scheduled takeouts) - we want photos mirrored in seconds or minutes, not weeks.
+**Our Solution:**
+- Download ALL photos from ALL albums (including shared ones)
+- Get photos added by friends/family in shared albums
+- Create complete local backup with proper album structure
+- Sync continuously and automatically
+- Export to photo management tools (Immich, etc.)
+
+**Goal:** Keep a complete, up-to-date local mirror of your entire Google Photos library, including all shared content, ready to import into self-hosted solutions like Immich.
 
 **What if Google breaks this tool?** We'll update it. That's no different than using APIs - companies regularly deprecate and change those too.
 
@@ -116,6 +127,21 @@ We can get our original photos out with [Google Takeout](https://takeout.google.
 4. Downloads each photo to your specified directory
 5. Keeps track of what's downloaded to avoid duplicates
 6. Can run external programs on each download (e.g., upload elsewhere)
+
+## TODO / Roadmap
+
+**Current Focus:**
+- [ ] Download shared albums (created by others)
+- [ ] Include photos added by friends/family in shared albums
+- [ ] Preserve album structure and metadata
+- [ ] Export/sync to Immich (or similar self-hosted solutions)
+- [ ] Better handling of shared content permissions
+
+**Future:**
+- [ ] Incremental sync optimization
+- [ ] Album metadata export (JSON/CSV)
+- [ ] Direct Immich API integration
+- [ ] Web UI for monitoring
 
 ## Advanced Usage
 
