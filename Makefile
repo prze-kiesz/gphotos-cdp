@@ -1,4 +1,4 @@
-.PHONY: help build up down restart logs status shell clean clean-all rebuild stats update auth
+.PHONY: help build up down restart logs status shell clean clean-all rebuild stats update auth learn chrome-debug chrome-debug-stop chrome-debug-logs
 
 help: ## Show this help
 	@echo "gphotos-cdp Docker Commands"
@@ -66,3 +66,18 @@ update: ## Pull latest code and rebuild
 	docker-compose build
 	docker-compose up -d
 	@echo "Updated and restarted."
+
+# Chrome Remote Debugging Commands
+chrome-debug: ## Start Chrome in remote debugging mode (port 9222)
+	@./chrome-debug.sh
+
+chrome-debug-stop: ## Stop Chrome remote debugging
+	docker-compose stop chrome-debug
+
+chrome-debug-logs: ## View Chrome debug logs
+	docker-compose logs -f chrome-debug
+
+chrome-debug-status: ## Check Chrome debug status
+	@docker-compose ps chrome-debug
+	@echo ""
+	@curl -s http://localhost:9222/json/version 2>/dev/null | python3 -m json.tool || echo "Chrome not responding on port 9222"

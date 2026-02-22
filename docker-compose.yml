@@ -79,6 +79,85 @@ services:
         max-size: "10m"
         max-file: "3"
 
+  # Chrome Remote Debugging service
+  # Use this to connect from your local browser for testing/login
+  chrome-debug:
+    build: .
+    container_name: chrome-debug
+    restart: unless-stopped
+    
+    # Security options for Chrome
+    security_opt:
+      - seccomp:unconfined
+    
+    # Shared memory size (important for Chrome)
+    shm_size: '2gb'
+    
+    ports:
+      # Chrome DevTools Protocol port
+      - "9222:9222"
+    
+    volumes:
+      # Chrome profile (persistent, keeps login session)
+      - ./chrome-profile:/data/profile
+    
+    environment:
+      - CHROME_PATH=/usr/bin/chromium
+      - DISPLAY=:99
+    
+    # Run Chrome in remote debugging mode with socat proxy
+    command: >
+      /bin/bash -c "
+      rm -f /data/profile/SingletonLock /data/profile/*/SingletonLock &&
+      /usr/bin/chromium
+      --remote-debugging-port=9223
+      --user-data-dir=/data/profile
+      --no-first-run
+      --no-default-browser-check
+      --disable-background-networking
+      --disable-background-timer-throttling
+      --disable-backgrounding-occluded-windows
+      --disable-breakpad
+      --disable-client-side-phishing-detection
+      --disable-component-extensions-with-background-pages
+      --disable-default-apps
+      --disable-dev-shm-usage
+      --disable-extensions
+      --disable-features=TranslateUI
+      --disable-hang-monitor
+      --disable-ipc-flooding-protection
+      --disable-popup-blocking
+      --disable-prompt-on-repost
+      --disable-renderer-backgrounding
+      --disable-sync
+      --metrics-recording-only
+      --no-sandbox
+      --headless=new
+      --disable-gpu
+      --window-size=1920,1080
+      about:blank &
+      sleep 2 &&
+      socat TCP-LISTEN:9222,fork,reuseaddr TCP:127.0.0.1:9223
+      "
+    
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    
+    # Healthcheck
+    healthcheck:
+      test: ["CMD-SHELL", "curl -s http://localhost:9222/json/version || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
 # Optional: network configuration
 networks:
   default:

@@ -25,6 +25,8 @@ RUN apt-get update && apt-get install -y \
     chromium \
     chromium-driver \
     ca-certificates \
+    curl \
+    socat \
     fonts-liberation \
     libasound2 \
     libatk-bridge2.0-0 \
