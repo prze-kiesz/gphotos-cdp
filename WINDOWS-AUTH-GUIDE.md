@@ -12,9 +12,44 @@
 
 ---
 
-### Krok 2: Znajdź Chrome Profile
+### Krok 2: Pobierz i uruchom skrypt
 
-Otwórz **PowerShell** (Windows + R, wpisz `powershell`, Enter) i wykonaj:
+#### Metoda A: Bezpośrednie uruchomienie (NAJSZYBSZA)
+
+1. **Pobierz skrypt** z serwera lub [GitHub](https://raw.githubusercontent.com/prze-kiesz/gphotos-cdp/master/copy-chrome-profile.ps1)
+
+2. **Otwórz PowerShell jako Administrator:**
+   - Kliknij Start
+   - Wpisz "PowerShell"
+   - Kliknij PPM na "Windows PowerShell"
+   - Wybierz "Run as administrator"
+
+3. **Pozwól na uruchamianie skryptów** (tylko raz):
+   ```powershell
+   Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned -Force
+   ```
+
+4. **Uruchom skrypt:**
+   ```powershell
+   cd $env:USERPROFILE\Desktop
+   .\copy-chrome-profile.ps1
+   ```
+
+#### Metoda B: Bez zmiany Execution Policy (ALTERNATYWA)
+
+Jeśli nie chcesz zmieniać Execution Policy, możesz uruchomić skrypt bezpośrednio:
+
+```powershell
+# Otwórz PowerShell (nie musi być jako Administrator)
+cd $env:USERPROFILE\Desktop
+
+# Uruchom bez zmiany policy
+powershell -ExecutionPolicy Bypass -File .\copy-chrome-profile.ps1
+```
+
+#### Metoda C: Ręczne kopiowanie (BEZ SKRYPTU)
+
+Jeśli wolisz zrobić to ręcznie, otwórz **PowerShell** (Windows + R, wpisz `powershell`, Enter) i wykonaj:
 
 ```powershell
 # Przejdź do folderu Desktop
@@ -204,6 +239,43 @@ pause
 ---
 
 ## 🚨 Rozwiązywanie Problemów
+
+### Problem: "Execution Policy" - PowerShell nie pozwala uruchamiać skryptów
+
+**Objawy:**
+- Czerwony błąd: "cannot be loaded because running scripts is disabled"
+- "Execution of scripts is disabled on this system"
+
+**Rozwiązanie 1: Zmień Execution Policy (ZALECANE)**
+
+Otwórz PowerShell **jako Administrator**:
+```powershell
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned -Force
+```
+
+To pozwoli uruchamiać lokalne skrypty.
+
+**Rozwiązanie 2: Bypass dla jednego skryptu (BEZ ADMIN)**
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\copy-chrome-profile.ps1
+```
+
+**Rozwiązanie 3: Odblokuj plik**
+
+Jeśli pobrałeś skrypt z internetu:
+1. Kliknij PPM na `copy-chrome-profile.ps1`
+2. Wybierz "Properties"
+3. Na dole zaznacz "Unblock"
+4. Kliknij OK
+5. Spróbuj ponownie
+
+**Rozwiązanie 4: Skopiuj kod i uruchom bezpośrednio**
+
+```powershell
+# Otwórz PowerShell i wklej zawartość skryptu bezpośrednio
+# (skopiuj całą zawartość copy-chrome-profile.ps1 i wklej do PowerShell)
+```
 
 ### Problem: "Access Denied" podczas kopiowania
 
